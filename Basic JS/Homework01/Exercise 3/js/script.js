@@ -52,4 +52,4 @@ console.log("Whith inpit")
 console.log(`The price of ${numberOfPhones} phones worth $${inputPriceOfPhones} with a tax rate of %${inputTaxRate} is:`)
 console.log(`Pre Tax: $${pricePreTax}`)
 console.log(`Post Tax: $${finalPrice}`)
-
+console.log("END")
