@@ -1,0 +1,24 @@
+* {
+    font-size: 1.2em;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    background-color: #f3d3ae;
+    width: 70%;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+ul {
+    columns: 3;
+    list-style-type:square;
+}
+
+  
