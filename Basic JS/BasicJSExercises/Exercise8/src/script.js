@@ -1,9 +1,14 @@
 $(document).ready(function() {
  let myForm = $('#form');
  let firstName = $('#firstName');
- let myTable = $("#myTable")
+ let myTable = $("#myTable").append(`<tr><td>Fist Name</td><td>Last Name</td><td>Phone Number</td><td>Delete</td><td>Edit</td></tr>`).css({
+  'border': '1px solid black'
+})
  let lastName = $('#lastName');
  let phoneNumber = $('#phoneNumber');
+
+ let globalIndex = 'save'
+ let state = 'save'
 
  let contacts = []
  function Contact (fName, lName, pNumber) {
@@ -14,7 +19,9 @@ $(document).ready(function() {
 
  function renderPhoneBook() {
   myTable.empty()
-  myTable.append(`<tr><td>Fist Name</td><td>Last Name</td><td>Phone Number</td><td>Delete</td><td>Edit</td></tr>`);
+  myTable.append(`<tr><td>Fist Name</td><td>Last Name</td><td>Phone Number</td><td>Delete</td><td>Edit</td></tr>`).css({
+    'border': '1px solid black'
+  })
   for(let index in contacts) {
     myTable.append(`<tr>
       <td>${contacts[index].firstName}</td>
@@ -26,37 +33,53 @@ $(document).ready(function() {
   }
   $(".delete").click(function(e) {
     contacts.splice(e.target.id, 1)
+    globalIndex = 'save'
     renderPhoneBook()
   })
 
   $(".edit").click(function(e) {
-    let index = e.target.id
+    $(".cancel").remove()
+    myForm.after(`<button class="cancel">Cancel</button>`)
+
+    $(".cancel").click(function(e) {
+      renderPhoneBook()
+      $(".cancel").remove()
+      globalIndex = 'save'
+    })
+
+    if(globalIndex != 'save') {
+      $( `#myTable tr:eq(${globalIndex + 1})`).css("background-color", "")
+    }
+
+    let index = +e.target.id
      firstName.val(contacts[index].firstName),
      lastName.val(contacts[index].lastName),
      phoneNumber.val(contacts[index].phoneNumber)
- 
-      $('#sbt').val(`${index}`)
+
+     console.log(index + 1)
+     $( `#myTable tr:eq(${+index + 1})`).css('background-color', 'lightgreen')
+     globalIndex = index
+  })
+
+  firstName.val("")
+  lastName.val("")
+  phoneNumber.val("")
+  myTable.find('td').css({
+    'border': '1px solid black'
   })
  }
 
  function phoneBook(fName, lName, pNumber) {
-   if($('#sbt').val() == 'save') {
+   if(globalIndex == 'save') {
     contacts.push(new Contact(fName, lName, pNumber))
     renderPhoneBook()
-    firstName.val("")
-    lastName.val("")
-    phoneNumber.val("")
    }
    else{
-     let index = $('#sbt').val()
-    contacts[index].firstName = fName
-    contacts[index].lastName = lName
-    contacts[index].phoneNumber = pNumber
+    contacts[globalIndex].firstName = fName
+    contacts[globalIndex].lastName = lName
+    contacts[globalIndex].phoneNumber = pNumber
     renderPhoneBook()
-    firstName.val("")
-    lastName.val("")
-    phoneNumber.val("")
-    $('#sbt').val('save')
+    globalIndex = 'save'
    }
 
  }
