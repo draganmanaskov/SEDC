@@ -6,10 +6,7 @@ $(document).ready(function() {
     let h1Elemnt = $('#header1');
     let messageInput = $('#message');
     
-    function printMessage(e) {
-        // prevent form submit
-        e.preventDefault();
-
+    function printMessage() {
         //change the text of the h1 element with our input
         h1Elemnt
             .text(`${messageInput.val()}`)
@@ -22,8 +19,9 @@ $(document).ready(function() {
 
     //call when submit
     myForm.submit(function (e) {
-        printMessage(e)
+        // prevent form submit
+        e.preventDefault();
+        printMessage()
     })
-
 })
 
