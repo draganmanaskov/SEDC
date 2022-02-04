@@ -72,9 +72,9 @@ function renderTable(person) {
     document.querySelector('.container').appendChild(table)
 }
 
-function addToRow(header, stat, i) {
+function addToRow(row, stat, i) {
     // console.log(i)
-    let newCell = header.insertCell(i)
+    let newCell = row.insertCell(i)
     let newText = document.createTextNode(stat);
     newCell.appendChild(newText);
 }
